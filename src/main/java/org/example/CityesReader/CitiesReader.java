@@ -14,7 +14,7 @@ import java.util.Map;
 public class CitiesReader {
 
     private final String url = "src/main/resources/Cities.txt";
-    private Map<Character, List<String>> citiesRepo = new HashMap<>();
+    private final Map<Character, List<String>> citiesRepo = new HashMap<>();
 
     public CitiesReader(){
         try (BufferedReader br = Files.newBufferedReader(Path.of(url), /*Charset.forName("CP1251")*/StandardCharsets.UTF_8)){
