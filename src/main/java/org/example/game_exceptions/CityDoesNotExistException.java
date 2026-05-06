@@ -1,4 +1,4 @@
-package org.example.GameExceptions;
+package org.example.game_exceptions;
 
 public class CityDoesNotExistException extends Exception {
     public CityDoesNotExistException(String message) {

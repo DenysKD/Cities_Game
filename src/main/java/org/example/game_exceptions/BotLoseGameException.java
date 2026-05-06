@@ -1,4 +1,4 @@
-package org.example.GameExceptions;
+package org.example.game_exceptions;
 
 public class BotLoseGameException extends Exception {
     public BotLoseGameException(String message) {

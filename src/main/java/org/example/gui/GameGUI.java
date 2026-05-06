@@ -1,11 +1,9 @@
-package org.example.GUI;
+package org.example.gui;
 
-import org.example.Bot.GameBot;
-import org.example.GameExceptions.BotLoseGameException;
-import org.example.GameExceptions.CityDoesNotExistException;
-import org.example.GameExceptions.DejaVuException;
-import org.example.GameExceptions.UserLoseGameException;
-import org.example.User.User;
+import org.example.bot.GameBot;
+import org.example.game.Game;
+import org.example.game_exceptions.*;
+import org.example.user.User;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,10 +12,13 @@ public class GameGUI extends JFrame {
     private User user;
     private GameBot bot;
     private String lastCity = null;
+    public Game game;
 
     public GameGUI() {
-        user = new User();
-        bot = new GameBot();
+        game = new Game();
+        user = new User(game);
+        bot = new GameBot(game);
+
 
         super.setTitle("Міста");
         this.setSize(400, 150);
@@ -52,6 +53,7 @@ public class GameGUI extends JFrame {
 
             try {
                 user.userMove(lastCity, userCity);
+                user.winCheck(userCity);
             } catch (CityDoesNotExistException ex) {
                 showWarningDialog("Невідоме місто", ex.getMessage());
                 cityField.setText("");
@@ -61,7 +63,14 @@ public class GameGUI extends JFrame {
                 cityField.setText("");
                 return;
             } catch (UserLoseGameException ex) {
-                showUserLoseDialog(ex.getMessage());
+                showUserLoseDialog(user.getAnswersCount());
+                return;
+            } catch (WrongCharacterCityException ex) {
+                showWarningDialog("Неправильна буква", ex.getMessage());
+                cityField.setText("");
+                return;
+            } catch (BotLoseGameException ex) {
+                showVictoryDialog(user.getAnswersCount());
                 return;
             }
 
@@ -70,12 +79,16 @@ public class GameGUI extends JFrame {
 
             try {
                 String botCity = bot.botMove(lastCity);
+                bot.winCheck(botCity);
                 lastCity = botCity;
-                computerLabel.setText("Комп'ютер: " + botCity);
+                computerLabel.setText("Комп'ютер: " + botCity.substring(0,1).toUpperCase() + botCity.substring(1));
                 statusLabel.setText("Місто на літеру: " +
-                        Character.toUpperCase(botCity.charAt(botCity.length() - 1)));
-            } catch (BotLoseGameException ex) {
+                        Character.toUpperCase(game.lastCharFinder(botCity)));
+            }/* catch (BotLoseGameException ex) {
                 showVictoryDialog(user.getAnswersCount());
+            }*/ catch (UserLoseGameException ex) {
+                showUserLoseDialog(user.getAnswersCount());
+                return;
             }
         });
     }
@@ -118,11 +131,11 @@ public class GameGUI extends JFrame {
         dialog.setVisible(true);
     }
 
-    private void showUserLoseDialog(String cause) {
+    private void showUserLoseDialog(int score) {
         JDialog dialog = createDialog("Поразка");
 
         JLabel messageLabel = new JLabel(
-                "<html><center>Ви програли по причині - \"" + cause + "\"<br>Ваш рахунок = 0<br>Просто через те, що автору так схотілось :)</center></html>",
+                "<html><center>Нажаль ви програли!<br>Ваш рахунок - " + score + " балів</center></html>",
                 SwingConstants.CENTER
         );
         JButton closeButton = new JButton("Закрити");
