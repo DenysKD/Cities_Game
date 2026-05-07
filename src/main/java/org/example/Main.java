@@ -7,8 +7,8 @@ public class Main {
     static void main() {
 
         StartGameGUI startWindow = new StartGameGUI();
-        CitiesReader cr = new CitiesReader();
-        System.out.println(cr.getCitiesRepo().toString());
+        /*CitiesReader cr = new CitiesReader();
+        System.out.println(cr.getCitiesRepo().toString());*/
 
     }
 }
