@@ -37,20 +37,6 @@ public class CitiesReader {
         }  catch (IOException e) {
             throw new RuntimeException("Помилка читання файлу:", e);
         }
-        /*try (BufferedReader br = Files.newBufferedReader(Path.of(url), StandardCharsets.UTF_8)){
-            String line;
-            while ((line = br.readLine()) != null){
-
-                line = line.toLowerCase();
-                String[] tmpLine = line.split(",+");
-                for (int i = 0; i < tmpLine.length; i++) {
-                    String city = tmpLine[i].trim();
-                    citiesRepo.computeIfAbsent(city.charAt(0), k -> new ArrayList<>()).add(city);
-                }
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e.getMessage());
-        }*/
     }
 
     public Map<Character, List<String>> getCitiesRepo() {

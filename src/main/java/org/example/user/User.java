@@ -35,14 +35,7 @@ public class User {
             if(!city.startsWith(String.valueOf(botsLastChar))) {
                 throw new WrongCharacterCityException("Ваше місто починається на неправильну букву!");
             }
-            //Map<Character, List<String>> remainCities = game.getRemainCities();
-
-            /*if (remainCities.get(botsLastChar).isEmpty()) {
-                throw new UserLoseGameException("Гравець програв!");
-            }*/
         }
-
-
 
         if(checkResult == RepoStatus.AlreadyUsed) {
             throw new DejaVuException("Це ж було вже!");
@@ -53,7 +46,6 @@ public class User {
     }
 
     public void winCheck(String city) throws BotLoseGameException {
-        //city = city.toLowerCase();
         Map<Character, List<String>> remainCities = game.getRemainCities();
         char lastChar = game.lastCharFinder(city);
         if(!remainCities.containsKey(lastChar) || remainCities.get(lastChar).isEmpty()) {

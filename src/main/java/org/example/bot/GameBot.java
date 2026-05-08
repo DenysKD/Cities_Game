@@ -15,15 +15,10 @@ public class GameBot {
         this.game = game;
     }
 
-    public String botMove(String city) /*throws BotLoseGameException*/ {
+    public String botMove(String city) {
         city = city.toLowerCase();
-        //Map<Character, List<String>> remainCities = game.getRemainCities();
 
         char lastChar = game.lastCharFinder(city);
-        //System.out.println(lastChar);
-        /*if(!remainCities.containsKey(lastChar) || remainCities.get(lastChar).isEmpty()) {
-            throw new BotLoseGameException("Бот програв гру!");
-        }*/
 
         List<String> citiesList = game.getRemainCities().get(lastChar);
         String chosenCity;

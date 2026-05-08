@@ -79,16 +79,13 @@ public class GameGUI extends JFrame {
 
             try {
                 String botCity = bot.botMove(lastCity);
-                bot.winCheck(botCity);
                 lastCity = botCity;
                 computerLabel.setText("Комп'ютер: " + botCity.substring(0,1).toUpperCase() + botCity.substring(1));
                 statusLabel.setText("Місто на літеру: " +
                         Character.toUpperCase(game.lastCharFinder(botCity)));
-            }/* catch (BotLoseGameException ex) {
-                showVictoryDialog(user.getAnswersCount());
-            }*/ catch (UserLoseGameException ex) {
+                bot.winCheck(botCity);
+            } catch (UserLoseGameException ex) {
                 showUserLoseDialog(user.getAnswersCount());
-                return;
             }
         });
     }
