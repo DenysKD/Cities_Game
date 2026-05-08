@@ -1,4 +1,4 @@
-package org.example.GameExceptions;
+package org.example.game_exceptions;
 
 public class DejaVuException extends Exception {
     public DejaVuException(String message) {
