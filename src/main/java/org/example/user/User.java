@@ -21,6 +21,12 @@ public class User {
         if(city.equalsIgnoreCase("здаюсь")) {
             throw new UserLoseGameException("Нажаль ви здались :(");
         }
+
+        RepoStatus checkResult = game.checkAnswer(city);
+        if(checkResult == RepoStatus.NotExist) {
+            throw new CityDoesNotExistException("Я не знаю такого міста!");
+        }
+
         city = city.toLowerCase();
         if (botAnswer != null) {
             botAnswer = botAnswer.toLowerCase();
@@ -36,10 +42,8 @@ public class User {
             }*/
         }
 
-        RepoStatus checkResult = game.checkAnswer(city);
-        if(checkResult == RepoStatus.NotExist) {
-            throw new CityDoesNotExistException("Я не знаю такого міста!");
-        }
+
+
         if(checkResult == RepoStatus.AlreadyUsed) {
             throw new DejaVuException("Це ж було вже!");
         }
