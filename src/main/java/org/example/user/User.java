@@ -16,7 +16,7 @@ public class User {
     }
 
     public void userMove(String botAnswer, String city) throws CityDoesNotExistException, DejaVuException,
-            UserLoseGameException, WrongCharacterCityException {
+            UserLoseGameException, WrongCharacterCityException, EmptyLineException {
         if(city.equalsIgnoreCase("здаюсь")) {
             throw new UserLoseGameException("На жаль, ви здались :(");
         }

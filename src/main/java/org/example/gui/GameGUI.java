@@ -9,10 +9,10 @@ import javax.swing.*;
 import java.awt.*;
 
 public class GameGUI extends JFrame {
-    private User user;
-    private GameBot bot;
+    private final User user;
+    private final GameBot bot;
     private String lastCity = null;
-    public final Game game;
+    private final Game game;
 
     public GameGUI() {
         game = new Game();
@@ -72,6 +72,9 @@ public class GameGUI extends JFrame {
             } catch (BotLoseGameException ex) {
                 showVictoryDialog(user.getAnswersCount());
                 return;
+            } catch (EmptyLineException ex) {
+                statusLabel.setText("Введіть назву міста!");
+                return;
             }
 
             lastCity = userCity;
@@ -86,6 +89,8 @@ public class GameGUI extends JFrame {
                 bot.winCheck(botCity);
             } catch (UserLoseGameException ex) {
                 showUserLoseDialog(user.getAnswersCount());
+            } catch (BotLoseGameException ex) {
+                showVictoryDialog(user.getAnswersCount());
             }
         });
     }

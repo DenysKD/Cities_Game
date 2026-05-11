@@ -9,9 +9,9 @@ import java.util.List;
 import java.util.Map;
 
 public class Game {
-    private Map<Character, List<String>> allCities;
-    private Map<Character, List<String>> remainCities;
-    private Map<Character, List<String>> cityRegistry;
+    private final Map<Character, List<String>> allCities;
+    private final Map<Character, List<String>> remainCities;
+    private final Map<Character, List<String>> cityRegistry;
 
     public Game(){
         CitiesReader cr = new CitiesReader();
@@ -20,7 +20,7 @@ public class Game {
         cityRegistry = new HashMap<>();
     }
 
-    public RepoStatus checkAnswer(String city){
+    public RepoStatus checkAnswer(String city) throws EmptyLineException {
         if(city.isBlank()){
             throw new EmptyLineException("Введено порожній рядок!");
         }

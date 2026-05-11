@@ -29,8 +29,9 @@ public class CitiesReader {
                     String[] tmpLine = line.split(",+");
                     for (int i = 0; i < tmpLine.length; i++) {
                         String city = tmpLine[i].trim();
-                        //System.out.println("city - " + city + ":::: char - " + city.charAt(0));
-                        citiesRepo.computeIfAbsent(city.charAt(0), k -> new ArrayList<>()).add(city);
+                        if(!city.isBlank()) {
+                            citiesRepo.computeIfAbsent(city.charAt(0), k -> new ArrayList<>()).add(city);
+                        }
                     }
                 }
             }

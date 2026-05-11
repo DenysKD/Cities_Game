@@ -1,6 +1,7 @@
 package org.example.bot;
 
 import org.example.game.Game;
+import org.example.game_exceptions.BotLoseGameException;
 import org.example.game_exceptions.UserLoseGameException;
 
 import java.util.List;
@@ -17,14 +18,14 @@ public class GameBot {
         this.random = new Random();
     }
 
-    public String botMove(String city) {
+    public String botMove(String city) throws BotLoseGameException {
         city = city.toLowerCase();
 
         char lastChar = game.lastCharFinder(city);
 
         List<String> citiesList = game.getRemainCities().get(lastChar);
         if(citiesList == null || citiesList.isEmpty()){
-            throw new RuntimeException("Список міст пустий!");
+            throw new BotLoseGameException("Список міст пустий!");
         }
         String chosenCity;
         if(citiesList.size() > 1){
