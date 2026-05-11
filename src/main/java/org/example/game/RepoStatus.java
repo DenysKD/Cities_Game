@@ -1,5 +1,5 @@
 package org.example.game;
 
 public enum RepoStatus {
-    NotExist, AlreadyUsed, Exist
+    NOT_EXIST, ALREADY_USED, EXIST
 }

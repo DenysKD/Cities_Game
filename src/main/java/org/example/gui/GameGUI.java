@@ -12,7 +12,7 @@ public class GameGUI extends JFrame {
     private User user;
     private GameBot bot;
     private String lastCity = null;
-    public Game game;
+    public final Game game;
 
     public GameGUI() {
         game = new Game();
@@ -132,7 +132,7 @@ public class GameGUI extends JFrame {
         JDialog dialog = createDialog("Поразка");
 
         JLabel messageLabel = new JLabel(
-                "<html><center>Нажаль ви програли!<br>Ваш рахунок - " + score + " балів</center></html>",
+                "<html><center>На жаль, ви програли!<br>Ваш рахунок - " + score + " балів</center></html>",
                 SwingConstants.CENTER
         );
         JButton closeButton = new JButton("Закрити");

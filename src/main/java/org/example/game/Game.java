@@ -1,6 +1,7 @@
 package org.example.game;
 
-import org.example.cityes_reader.CitiesReader;
+import org.example.cities_reader.CitiesReader;
+import org.example.game_exceptions.EmptyLineException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,22 +21,27 @@ public class Game {
     }
 
     public RepoStatus checkAnswer(String city){
+        if(city.isBlank()){
+            throw new EmptyLineException("Введено порожній рядок!");
+        }
         city = city.toLowerCase();
         if(!allCities.containsKey(city.charAt(0)) || !(allCities.get(city.charAt(0)).contains(city))) {
-            return RepoStatus.NotExist;
+            return RepoStatus.NOT_EXIST;
         }
         if(!(remainCities.get(city.charAt(0)).contains(city))) {
-            return RepoStatus.AlreadyUsed;
+            return RepoStatus.ALREADY_USED;
         }
-        return RepoStatus.Exist;
+        return RepoStatus.EXIST;
     }
 
     public void removeCity(String city){
+        city = city.trim().toLowerCase();
         cityRegistry.computeIfAbsent(city.toLowerCase().charAt(0), k -> new ArrayList<>()).add(city);
         remainCities.get(city.toLowerCase().charAt(0)).remove(city);
     }
 
     public char lastCharFinder(String city){
+        city = city.toLowerCase();
         char lastChar = city.charAt(city.length() - 1);
         if(lastChar == 'ь' || lastChar == 'и' || lastChar == 'ї'){
             lastChar = city.charAt(city.length() - 2);

@@ -9,10 +9,12 @@ import java.util.Random;
 
 public class GameBot {
 
-    Game game;
+    private final Game game;
+    private final Random random;
 
     public GameBot(Game game){
         this.game = game;
+        this.random = new Random();
     }
 
     public String botMove(String city) {
@@ -21,9 +23,11 @@ public class GameBot {
         char lastChar = game.lastCharFinder(city);
 
         List<String> citiesList = game.getRemainCities().get(lastChar);
+        if(citiesList == null || citiesList.isEmpty()){
+            throw new RuntimeException("Список міст пустий!");
+        }
         String chosenCity;
         if(citiesList.size() > 1){
-            Random random = new Random();
             chosenCity = citiesList.get(random.nextInt(citiesList.size()));
         } else {
             chosenCity = citiesList.getFirst();
@@ -36,7 +40,7 @@ public class GameBot {
     public void winCheck(String city) throws UserLoseGameException {
         char lastChar = game.lastCharFinder(city);
         Map<Character, List<String>> remainCities = game.getRemainCities();
-        if (remainCities.get(lastChar).isEmpty()) {
+        if (!remainCities.containsKey(lastChar) || remainCities.get(lastChar).isEmpty()) {
             throw new UserLoseGameException("Гравець програв!");
         }
     }

@@ -1,4 +1,4 @@
-package org.example.cityes_reader;
+package org.example.cities_reader;
 
 
 import java.io.*;
@@ -17,13 +17,15 @@ public class CitiesReader {
 
         try(InputStream is = getClass().getClassLoader().getResourceAsStream(root)){
             if (is == null) {
-                throw new FileNotFoundException("Файл не знайдено в classpath: file.txt");
+                throw new RuntimeException("Відсутній файл src/main/resources/Cities.txt!");
             }
             try (BufferedReader br = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))){
                 String line;
                 while ((line = br.readLine()) != null){
-
                     line = line.toLowerCase();
+                    if(line.isBlank()){
+                        continue;
+                    }
                     String[] tmpLine = line.split(",+");
                     for (int i = 0; i < tmpLine.length; i++) {
                         String city = tmpLine[i].trim();

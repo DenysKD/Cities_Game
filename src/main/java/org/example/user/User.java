@@ -17,13 +17,12 @@ public class User {
 
     public void userMove(String botAnswer, String city) throws CityDoesNotExistException, DejaVuException,
             UserLoseGameException, WrongCharacterCityException {
-
         if(city.equalsIgnoreCase("здаюсь")) {
-            throw new UserLoseGameException("Нажаль ви здались :(");
+            throw new UserLoseGameException("На жаль, ви здались :(");
         }
 
         RepoStatus checkResult = game.checkAnswer(city);
-        if(checkResult == RepoStatus.NotExist) {
+        if(checkResult == RepoStatus.NOT_EXIST) {
             throw new CityDoesNotExistException("Я не знаю такого міста!");
         }
 
@@ -37,7 +36,7 @@ public class User {
             }
         }
 
-        if(checkResult == RepoStatus.AlreadyUsed) {
+        if(checkResult == RepoStatus.ALREADY_USED) {
             throw new DejaVuException("Це ж було вже!");
         }
 
